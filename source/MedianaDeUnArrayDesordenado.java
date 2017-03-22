@@ -1,4 +1,5 @@
-package trabajo;import java.util.Arrays;
+package medians;
+import java.util.Arrays;
 
 
 /**
@@ -9,26 +10,33 @@ public class MedianaDeUnArrayDesordenado {
 
 	static boolean debug = false;
 
-	
-	static int select(int[] vector, int izquierda, int derecha, int n) {
+	/**
+	 * Método principal que se encargará de ordenar y particionar el conjunto de datos
+	 * @param vector
+	 * @param n
+	 * @param izquierda
+	 * @param derecha
+	 * @return
+	 */
+	static int select(int[] vector, int n, int izquierda, int derecha) {
 		if(izquierda == derecha)
 			return vector[izquierda];
 		
-		// ordena el K'esimo elemento en el array
+		// ordena el K-esimo elemento en el array
 		int k = particion(vector, izquierda, derecha);
 		
 		int length = k - izquierda + 1;
-		System.out.println("es length:" + length + "   igual al indice del pivote:" + k);
-		if(length == k) {
-			System.out.println("Es igual");
+//		System.out.println("es length:" + length + "   igual al indice del pivote:" + k);
+		if(length == n) {
+//			System.out.println("Es igual");
 			return vector[k];
 		}
-		else if (length < k) {
-			System.out.println("Es menor");
+		else if (length > n) {
+			//System.out.println("Es menor");
 			return select(vector, n, izquierda, k - 1); 
 		}
 		else {
-			System.out.println("Es mayor");
+			//System.out.println("Es mayor");
 			return select(vector, n - length, k + 1, derecha); 
 		}
 	}
@@ -151,17 +159,17 @@ public class MedianaDeUnArrayDesordenado {
     }
     
     public static void main(String[] args) {
-    	int[] vector = new int[5];
+		int nElementos = 900000;
+    	int[] vector = new int[nElementos];
     	for (int i = 0; i < vector.length; i++) {
-			vector[i] = (int) (((Math.random() * 100)  + 1));
+			vector[i] = (int) (((Math.random() * 5000)  + 1));
 		}
-    	System.out.println("Vector: " + print(vector));
-//    	System.out.println(partition(vector,0,vector.length - 1, (vector.length / 2) - 1));
-    	System.out.println("mediana:" + select(vector,0,vector.length - 1, (vector.length / 2) + 1));
-    	System.out.println("Vector: " + print(vector));
+    	//System.out.println("Vector: " + print(vector));
+    	//System.out.println(partition(vector,0,vector.length - 1, (vector.length / 2) - 1));
+    	System.out.println("mediana:" + select(vector,(vector.length / 2) + 1, 0,vector.length - 1));
+    	//System.out.println("Vector: " + print(vector));
     	java.util.Arrays.sort(vector);
-    	System.out.println("Vector ordenado: " + print(vector));
+    	//System.out.println("Vector ordenado: " + print(vector));
     	System.out.println("mediana ordenado:" + vector[vector.length / 2]);
-
 	}
 }
